@@ -1,6 +1,5 @@
   <!--The content below is only a placeholder and can be replaced.-->
-
-    <div  style="color: black;height: 75px;text-align: center;">
+  <div  style="color: black;height: 75px;text-align: center;">
     <h1>
       {{ title }}
     </h1>
@@ -15,22 +14,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
      
       <ul class="navbar-nav navbar-right">
-      <a class="nav-link"  routerLink="/login"  routerLinkActive="active">Login</a>
-      <a class="nav-link"  routerLink="/Books"style="cursor:pointer" routerLinkActive="active">Books</a>
-      <a class="nav-link"  routerLink="/Authors"style="cursor:pointer"routerLinkActive="active" >Authors</a>
+      <a class="nav-link"  routerLink="login" *ngIf="!_auth.loggedIn()"  routerLinkActive="active">Login</a>
+      <a class="nav-link"  routerLink="Books"style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="loggedUser()"  routerLinkActive="active">Books</a>
+      <a class="nav-link"  routerLink="Authors"style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="loggedUser()" routerLinkActive="active" >Authors</a>
       
-      <a class="nav-link" routerLink="/Addbook" style="cursor:pointer" routerLinkActive="active">Addbook</a>
-      <a class="nav-link" routerLink="/Addauthor" style="cursor:pointer"routerLinkActive="active" >Addauthor</a>
-      <a class="nav-link" routerLink="/Updatebook" style="cursor:pointer" routerLinkActive="active">Updatebook</a>
-      <a class="nav-link" routerLink="/Updateauthor" style="cursor:pointer"routerLinkActive="active" >Updateauthor</a>
-      <a class="nav-link" routerLink="/Logout" style="cursor:pointer" routerLinkActive="active" >Logout</a>
+      <a class="nav-link" routerLink="Addbook" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="loggedUser()"  routerLinkActive="active">Addbook</a>
+      <a class="nav-link" routerLink="Addauthor" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="loggedUser()" routerLinkActive="active" >Addauthor</a>
+      <a class="nav-link" routerLink="Updatebook" style="cursor:pointer"  *ngIf="_auth.loggedIn()" (click)="loggedUser()"routerLinkActive="active">Updatebook</a>
+      <a class="nav-link" routerLink="Updateauthor" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="loggedUser()" routerLinkActive="active" >Updateauthor</a>
+      <a class="nav-link" routerLink="Logout" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="logoutUser()" routerLinkActive="active" >Logout</a>
       </ul>
     </div>
-  </nav>    
+  </nav>
+  <div id="bg" class="container">
+    <router-outlet></router-outlet>           
+  </div>      
   
-    
-  <div id="bg" class="container" style="margin-top: 5%;">
-  <!-- <img src="../assets/image/pic1.png"> -->
-  <router-outlet></router-outlet>           
-  </div>
   

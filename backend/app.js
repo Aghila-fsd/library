@@ -2,7 +2,7 @@ const express = require('express');
 const Authordata=require('./src/model/Authordata');
 const Bookdata=require('./src/model/Bookdata');
 //const Userdata=require('./src/model/Userdata');
-// const jwt=require('jsonwebtoken');
+const jwt=require('jsonwebtoken');
 var app = new express();
 const path = require('path');
 app.use(express.static(`./dist/<libraryapp>`));
@@ -11,11 +11,27 @@ const { title } = require('process');
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 username='admin';
 password='1234';
 
 /*login start*/
-
+function verifyToken(req, res, next) {
+    if(!req.headers.authorization) {
+      return res.status(401).send('Unauthorized request')
+    }
+    let token = req.headers.authorization.split(' ')[1]
+    if(token === 'null') {
+      return res.status(401).send('Unauthorized request')    
+    }
+    let payload = jwt.verify(token, 'secretKey')
+    if(!payload) {
+      return res.status(401).send('Unauthorized request')    
+    }
+    // req.userId = payload.subject
+    next()
+  }
+   
 
 /*login end*/
 app.get(`/*`, function(req, res) {
@@ -25,7 +41,7 @@ app.get(`/*`, function(req, res) {
 
 
 /*bookpage start*/
-app.post('/api/insert',function(req,res){
+app.post('/api/insert',verifyToken,function(req,res){
    
     console.log(req.body);
    
@@ -54,7 +70,7 @@ app.get('/api/:id',  (req, res) => {
         res.send(book);
     });
 })
-app.put('/api/update',(req,res)=>{
+app.put('/api/Updatebook',(req,res)=>{
     console.log(req.body)
     id=req.body._id,
     bookid = req.body.book.bookid,
@@ -87,7 +103,7 @@ app.delete('/api/remove/:id',(req,res)=>{
 
 
 /*authorpage start*/
-app.post('/api/insert',function(req,res){
+app.post('/api/insert',verifyToken,function(req,res){
    
     console.log(req.body);
    
@@ -116,7 +132,7 @@ app.get('/api/:id',  (req, res) => {
         res.send(author);
     });
 })
-app.put('/api/update',(req,res)=>{
+app.put('/api/Updateauthor',(req,res)=>{
     console.log(req.body)
     id=req.body._id,
     authorid = req.body.author.authorid,

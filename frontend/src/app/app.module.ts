@@ -19,6 +19,11 @@ import { FormsModule } from '@angular/forms';
 import { AuthorService } from './authorservice.service';
 import { BookComponent } from './book/book.component';
 import { AuthorComponent } from './author/author.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HeaderComponent } from './header/header.component';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+import { TokeninterceptorService } from './tokeninterceptor.service';
 
 @NgModule({
   declarations: [
@@ -33,16 +38,23 @@ import { AuthorComponent } from './author/author.component';
     LoginComponent,
     LogoutComponent,
     BookComponent,
-    AuthorComponent
+    AuthorComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     CarouselModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [BookService,AuthorService],
+  providers: [BookService,AuthorService,AuthService,AuthGuard,
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokeninterceptorService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

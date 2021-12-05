@@ -35,7 +35,7 @@ export class BookService {
   editBook(book:any)
   {
     console.log('client update')
-    return this.http.put<any>(`${this.server_address}/update`,book)
+    return this.http.put<any>(`${this.server_address}/Updatebook`,book)
     .subscribe(data =>{console.log(data)})
   }
 

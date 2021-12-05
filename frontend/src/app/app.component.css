@@ -1,15 +1,12 @@
 #bg {
     /* The image used */
-    background-image: url("../assets/image/pic1.png");
+background: blanchedalmond;
     /* Full height */
     height: 100%;
     /* Center and scale the image nicely */
     color: #fff;
     background-size: 100% ;  
-    background-size: cover; 
+    background-size: cover;
+    margin-top: auto; 
   }
-  img{
-    width: 1125px;
-    height: 600px;
-
- }
+  

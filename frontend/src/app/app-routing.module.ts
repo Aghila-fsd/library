@@ -1,38 +1,44 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AddauthorComponent } from './addauthor/addauthor.component';
 import { AddbookComponent } from './addbook/addbook.component';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './auth.guard';
 import { AuthorsComponent } from './authors/authors.component';
 import { BooksComponent } from './books/books.component';
+import { LoginComponent } from './login/login.component';
 import { UpdateauthorComponent } from './updateauthor/updateauthor.component';
 import { UpdatebookComponent } from './updatebook/updatebook.component';
 
 const routes: Routes = [
+
   {
-    path: '',
-    redirectTo: '/app',
-    pathMatch: 'full'
-  },
-  {
+    
     path: 'Home',
     component:AppComponent
   },
   {
-    path:'Books',
+    path:'login',
+    component:LoginComponent
+  },
+  {
+    path:'books',
     component:BooksComponent
   },
   {
-  path:'Authors',
+  path:'authors',
   component:AuthorsComponent
   },
   {
     path:'Addbook',
+    canActivate:[AuthGuard],
     component:AddbookComponent
   },
   {
     path:'Addauthor',
+    canActivate:[AuthGuard],
     component:AddauthorComponent
   },
   {
@@ -46,7 +52,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [CommonModule,
+    RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule],
+  declarations:[]
 })
 export class AppRoutingModule { }

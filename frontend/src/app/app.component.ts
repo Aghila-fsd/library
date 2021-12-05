@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'CREATE YOUR FUTURE WITH US';
+  constructor(public _auth:AuthService,private _router:Router){
+}
+logoutUser()
+{
+localStorage.removeItem('token')
+this._router.navigate(['/books'])
+}
+loggedUser()
+{
+  this._router.navigate(['/add'])
+}
 }
