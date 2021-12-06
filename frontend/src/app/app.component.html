@@ -23,6 +23,8 @@
       <a class="nav-link" routerLink="Updatebook" style="cursor:pointer"  *ngIf="_auth.loggedIn()" (click)="loggedUser()"routerLinkActive="active">Updatebook</a>
       <a class="nav-link" routerLink="Updateauthor" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="loggedUser()" routerLinkActive="active" >Updateauthor</a>
       <a class="nav-link" routerLink="Logout" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="logoutUser()" routerLinkActive="active" >Logout</a>
+      <a class="nav-link" style="cursor:pointer" *ngIf="!_auth.loggedIn()"  routerLink="/signup">Sign Up</a>
+
       </ul>
     </div>
   </nav>

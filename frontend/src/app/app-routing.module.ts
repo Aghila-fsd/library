@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AddauthorComponent } from './addauthor/addauthor.component';
@@ -28,10 +28,12 @@ const routes: Routes = [
     path:'signup',
     component:SignupComponent
   },
+  
   {
     path:'books',
     component:BooksComponent
   },
+  
   {
   path:'authors',
   component:AuthorsComponent

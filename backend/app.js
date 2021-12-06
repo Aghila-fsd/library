@@ -152,7 +152,7 @@ app.post('/api/insertauthor',verifyToken,function(req,res){
         genre: req.body.author.genre, 
         imageUrl : req.body.author.imageUrl,
    }       
-   var author = new Authordata(book);
+   var author = new Authordata(author);
    auth+or.save();
 });
 app.get('/api/authors',function(req,res){

@@ -25,6 +25,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokeninterceptorService } from './tokeninterceptor.service';
 import { SignupComponent } from './signup/signup.component';
+import { SingleauthorComponent } from './singleauthor/singleauthor.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { SignupComponent } from './signup/signup.component';
     BookComponent,
     AuthorComponent,
     HeaderComponent,
-    SignupComponent
+    SignupComponent,
+  
+    SingleauthorComponent
   ],
   imports: [
     BrowserModule,

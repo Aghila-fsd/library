@@ -23,7 +23,7 @@ export class AuthorService {
 
   addAuthor(item:any)
   {   
-    return this.http.post<any>(`${this.server_address}/insert`,{"author":item})
+    return this.http.post<any>(`${this.server_address}/insertauthor`,{"author":item})
     .subscribe(data =>{console.log(data)})
   }
   deleteAuthor(id:any)
