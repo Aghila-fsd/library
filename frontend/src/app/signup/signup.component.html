@@ -1,0 +1,31 @@
+<div style="background-color:wheat;">
+    <div class="card-header" >
+        <h3>Sign Up</h3>
+        </div>
+        
+        <div class="card-body">
+        <form class="form col-md-6" #usersignup="ngForm" (ngSubmit)="userverify()">
+        <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="username" class="form-control" #email="ngModel" [(ngModel)]="user.username" [class.is-invalid]="email.invalid && email.touched" required pattern="^[a-z0-9.%+]+@[a-z0-9.-]+\.[a-z]{2,4}">
+        <small class="text-danger" [class.d-none]="email.valid || email.untouched">Enter valid Email</small>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" name="password" class="form-control" #passw="ngModel" [(ngModel)]="user.password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+            <small class="text-danger" [class.d-none]="passw.valid || passw.untouched">Password must contain Uppercase, Lowercase, number and a minimum length of 8</small>
+        </div>
+            <div class="form-group">
+                <label for="Rptpassword">Repeat Password</label>
+                <input type="password" name="Rptpassword" class="form-control" #rptpassw="ngModel" [(ngModel)]="user.Rptpassword" required pattern="{{user.password}}" >
+                <small class="text-danger" [class.d-none]="rptpassw.valid || rptpassw.untouched">Password must be matching</small>    
+            </div>
+        <br>
+        <button class="btn btn-primary" [disabled]="usersignup.form.invalid">Sign Up</button>
+        
+        </form>
+        
+        </div>
+    
+    </div>

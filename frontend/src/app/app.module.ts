@@ -24,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokeninterceptorService } from './tokeninterceptor.service';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TokeninterceptorService } from './tokeninterceptor.service';
     LogoutComponent,
     BookComponent,
     AuthorComponent,
-    HeaderComponent
+    HeaderComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

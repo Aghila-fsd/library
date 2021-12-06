@@ -1,14 +1,20 @@
 const express = require('express');
+const port = process.env.PORT || 2017;
+
 const Authordata=require('./src/model/Authordata');
 const Bookdata=require('./src/model/Bookdata');
-//const Userdata=require('./src/model/Userdata');
+const Userdata=require('./src/model/Userdata');
 const jwt=require('jsonwebtoken');
-var app = new express();
-const path = require('path');
-app.use(express.static(`./dist/<libraryapp>`));
 const cors = require('cors');
 const { title } = require('process');
+const path = require('path');
 
+var bodyparser=require('body-parser');
+var app = new express();
+
+app.use(express.static(`./dist/libraryapp`));
+
+app.use(bodyparser.json());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,21 +34,50 @@ function verifyToken(req, res, next) {
     if(!payload) {
       return res.status(401).send('Unauthorized request')    
     }
-    // req.userId = payload.subject
+     req.userId = payload.subject
     next()
   }
+  app.post('/api/login', (req, res) => {
+    const uname = req.body.uname;
+    const pwd = req.body.password;
+    signupSchema.findOne({email:uname, password:pwd}, function(err,user)
+            {           
+              if(uname=="admin" && pwd=="1234")
+                {  
+                            
+                  let payload = {subject: username+password}
+                  let token = jwt.sign(payload, 'secretKey')
+                  res.status(200).send({token})              
+                }
+              else if(user)  {
+                let payload = {subject: username+password}
+                let token = jwt.sign(payload, 'secretKey')
+                res.status(200).send({token})   
+              }
+                else    
+                {
+                  res.status(401).send('Invalid Username/password')      
+                  console.log("Invalid user name/password"); 
+                } 
+                 
+                
+            })
+          })
    
 
 /*login end*/
+
+
 app.get(`/*`, function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist//<libraryapp>/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/libraryapp/index.html'));
    });
    
 
 
 /*bookpage start*/
-app.post('/api/insert',verifyToken,function(req,res){
-   
+app.post('/api/insertbook',verifyToken,function(req,res){
+  res.header("Access-Control-Allow-Origin","*")
+  res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")
     console.log(req.body);
    
     var book = {       
@@ -56,14 +91,16 @@ app.post('/api/insert',verifyToken,function(req,res){
    book.save();
 });
 app.get('/api/books',function(req,res){
-    
+  res.header("Access-Control-Allow-Origin","*")
+  res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")
     Bookdata.find()
                 .then(function(books){
                     res.send(books);
                 });
 });
 app.get('/api/:id',  (req, res) => {
-  
+  res.header("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")
   const id = req.params.id;
     Bookdata.findOne({"_id":id})
     .then((book)=>{
@@ -103,8 +140,9 @@ app.delete('/api/remove/:id',(req,res)=>{
 
 
 /*authorpage start*/
-app.post('/api/insert',verifyToken,function(req,res){
-   
+app.post('/api/insertauthor',verifyToken,function(req,res){
+  res.header("Access-Control-Allow-Origin","*")
+  res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")
     console.log(req.body);
    
     var author = {       
@@ -115,17 +153,19 @@ app.post('/api/insert',verifyToken,function(req,res){
         imageUrl : req.body.author.imageUrl,
    }       
    var author = new Authordata(book);
-   author.save();
+   auth+or.save();
 });
 app.get('/api/authors',function(req,res){
-    
+  res.header("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")  
     Authordata.find()
                 .then(function(authors){
                     res.send(authors);
                 });
 });
 app.get('/api/:id',  (req, res) => {
-  
+  res.header("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")
   const id = req.params.id;
     Authordata.findOne({"_id":id})
     .then((author)=>{
@@ -163,8 +203,25 @@ app.delete('/api/remove/:id',(req,res)=>{
 
 /*authorpage end*/
 
+/*signup page*/
+pp.post("/api/signup",function(req,res){
+  res.header("Access-Control-Allow-Origin","*")
+  res.header("Access-Control-Allow-Methods:GET,POST,PATCH,DELETE")
+  console.log(req.body);
+ 
+  var users = {       
+      username : req.body.item.uname,
+      email : req.body.item.email,
+      password : req.body.item.password,
+      Repeatpassword : req.body.item.cpassword,
+     
+ }       
+ var user = new Userdata(users);
+ user.save();
+})
 
 
-app.listen(2017, function(){
-    console.log('listening to port 2017');
+
+app.listen(port, () => {
+  console.log("Server is ready at port no:" + port);
 });

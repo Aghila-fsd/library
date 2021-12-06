@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthorsComponent } from './authors/authors.component';
 import { BooksComponent } from './books/books.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 import { UpdateauthorComponent } from './updateauthor/updateauthor.component';
 import { UpdatebookComponent } from './updatebook/updatebook.component';
 
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent
+  },
+  {
+    path:'signup',
+    component:SignupComponent
   },
   {
     path:'books',

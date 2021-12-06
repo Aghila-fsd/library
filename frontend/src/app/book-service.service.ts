@@ -23,7 +23,7 @@ export class BookService {
 
   addBook(item:any)
   {   
-    return this.http.post<any>(`${this.server_address}/insert`,{"book":item})
+    return this.http.post<any>(`${this.server_address}/insertbook`,{"book":item})
     .subscribe(data =>{console.log(data)})
   }
   deleteBook(id:any)
